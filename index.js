@@ -20,9 +20,29 @@ app.get("/todos", (req, res) => {
 
 });
 app.post("/todos", (req, res) => {
-    todos = [...todos, {text: req.body.text, completed: false}];
-    app.post("/todos", (req, res) => {
-    todos = [...todos, {text: req.body.text, completed: false}];
+    todos = [...todos, { text: req.body.text, completed: false }];
     res.json(todos);
 });
+
+
+app.delete("/todos/:id", (req, res) => {
+    const id = Number(req.params.id);
+    todos = todos.filter((todo, index) => index !== id);
+    res.json(todos);
+});
+
+//完了未完了の切り替え
+//map() は、配列の各要素に対して処理を行い、その return の値を集めて新しい配列を作るメソッドです。
+app.put("/todos/:id", (req, res) => {
+    const id = Number(req.params.id);
+    todos = todos.map((todo, index) => {
+        if (index === id) {
+            return {
+                ...todo,
+                ...req.body,
+            };
+        }
+        return todo;
+    })
+    res.json(todos);
 });
