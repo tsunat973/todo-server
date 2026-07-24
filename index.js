@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const { DatabaseSync } = require("node:sqlite");
+const PORT = process.env.PORT || 3001;
 
 app.get("/", (req, res) => {
     res.send("Hello");
 });
 
-app.listen(3001, () => {
-    console.log("サーバー起動: http://localhost:3001");
+app.listen(PORT, () => {
+    console.log(`サーバー起動: http://localhost:${PORT}`);
 });
 
 const cors = require("cors");
